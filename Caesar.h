@@ -13,7 +13,9 @@
 #include <iterator>
 #include <bitset>
 
+
 void caesarFromCLI(std::string msg, int shift, bool flagd, bool flagi, bool flago, std::string inputFile, std::string outputFile, bool flags);
+
 std::string encrypt(std::string message, int shift, bool loopChars);
 
 #endif /* CAESAR_H_ */

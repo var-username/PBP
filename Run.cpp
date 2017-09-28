@@ -89,6 +89,7 @@ int main(int argc, char **argv) {
 
 	if(flagc) {
 		printf("Using caesarian cipher with shift '%i'\n", shift);
+
 		caesarFromCLI(msg, shift, flagd, !(flagi.empty()), !flago.empty(), flagi, flago, flags);
 	}
 
