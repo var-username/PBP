@@ -29,6 +29,7 @@ int main(int argc, char **argv) {
 			{ "standardCharacters", no_argument,       &flags, 's' },
 			{ "decrypt",			no_argument,	   0,      'd' },
 			{ "help",				no_argument,	   0,      'h' },
+			{ "version",			no_argument,	   0,	   'V' },
 			{ 0,                    0,                 0,       0  }
 		};
 
@@ -41,6 +42,11 @@ int main(int argc, char **argv) {
 			case 'h':
 				printhelp();
 				exit(EXIT_SUCCESS);
+				break;
+			case 'V':
+				printf(VERSION + " - " + AUTHOR);
+				exit(EXIT_SUCCESS);
+				break;
 			case 'd':
 				flagd = true;
 				break;
