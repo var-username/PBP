@@ -22,14 +22,14 @@ int main(int argc, char **argv) {
 		//int this_option_optind = optind ? optind : 1;
 		int option_index = 0;
 		static struct option long_options[] = {
-			{ "list",				no_argument,	   &flagl, 'l' },
-			{ "inputFile",			required_argument, 0,      'i' },
-			{ "outputFile",			required_argument, 0,      'o' },
+			{ "list",		no_argument,	   &flagl, 'l' },
+			{ "inputFile",		required_argument, 0,      'i' },
+			{ "outputFile",		required_argument, 0,      'o' },
 			{ "caesar",             required_argument, 0,	   'c' },
 			{ "standardCharacters", no_argument,       &flags, 's' },
-			{ "decrypt",			no_argument,	   0,      'd' },
-			{ "help",				no_argument,	   0,      'h' },
-			{ "version",			no_argument,	   0,	   'V' },
+			{ "decrypt",		no_argument,	   0,      'd' },
+			{ "help",		no_argument,	   0,      'h' },
+			{ "version",		no_argument,	   0,	   'V' },
 			{ 0,                    0,                 0,       0  }
 		};
 
