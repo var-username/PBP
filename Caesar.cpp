@@ -9,7 +9,7 @@
 
 using namespace std;
 
-void runFromCLI(string msg, int shift, bool flagd, bool flagi, bool flago, string inputFile, string outputFile, bool flags) {
+void caesarFromCLI(string msg, int shift, bool flagd, bool flagi, bool flago, string inputFile, string outputFile, bool flags) {
 	switch (flagd) {
 		case true:
 			shift = 0 - shift;
