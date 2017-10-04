@@ -1,5 +1,5 @@
-#include "Run.h"
-#include "Caesar.h"
+#include "../include/Run.h"
+#include "../include/Caesar.h"
 using namespace std;
 
 void printhelp() {
@@ -44,7 +44,7 @@ int main(int argc, char **argv) {
 				exit(EXIT_SUCCESS);
 				break;
 			case 'V':
-				printf(VERSION + " - " + AUTHOR);
+				std::cout << VERSION << " - " << AUTHOR;
 				exit(EXIT_SUCCESS);
 				break;
 			case 'd':
