@@ -6,32 +6,26 @@ void printhelp() {
 	printf("Yeah you need help");
 }
 
+void printlist() {
+}
+
 int main(int argc, char **argv) {
     //return value from getopt_long
     int c;
-
-    //Used as bool, made int for compatability with getopt_long
-    //If >0, list encryption methods
-    int flagl = 0;
+    
+    string flagInput, flagOutput;
+    int flagDecrypt, flagHelp, flagList, flagStandardChars, flagVerbose, flagVersion;
+    int flagCaesarian;
 
     //Input file, blank if none
-    string flagi = "";
+    flagInput = "";
 
     //Output file, blank if none
-    string flago = "";
+    flagOutput = "";
 
     //Used as bool, int for compatability with getopt_long
     //If >0, Caesar shift is being used
-    int flagc = 0;
-
-    //Used as bool, int for compatability with getopt_long
-    //If >0, wrap ASCII codes to typically visable characters
-    int flags = 0;
-
-    //Used as bool, int for compatability with getopt_long
-    //If >0, run encryption scheme backwards to return cleartext from
-    //ciphertext input.
-    int flagd = 0;
+    flagCaesarian = 0;
 
     //Shift amount for Caesar cipher
     int shift = 0;
@@ -44,81 +38,47 @@ int main(int argc, char **argv) {
 	//int this_option_optind = optind ? optind : 1;
 	int option_index = 0;
 	static struct option long_options[] = {
-	    { "list",		    no_argument,	&flagl,	'l' },
-	    { "inputFile",	    required_argument,	0,	'i' },
-	    { "outputFile",	    required_argument,	0,	'o' },
-	    { "caesar",		    required_argument,	0,	'c' },
-	    { "standardCharacters", no_argument,	&flags,	's' },
-	    { "decrypt",	    no_argument,	0,	'd' },
-	    { "help",		    no_argument,	0,	'h' },
-	    { "version",	    no_argument,	0,	'V' },
-	    { 0,		    0,			0,	 0  }
+	    { "list",		    no_argument,	&flagList,		'l' },
+	    { "inputFile",	    required_argument,	0,			'i' },
+	    { "outputFile",	    required_argument,	0,			'o' },
+	    { "caesar",		    required_argument,	0,			'c' },
+	    { "standardCharacters", no_argument,	&flagStandardChars,	's' },
+	    { "decrypt",	    no_argument,	&flagDecrypt,		'd' },
+	    { "help",		    no_argument,	&flagHelp,		'h' },
+	    { "version",	    no_argument,	&flagVersion,		'V' },
+	    { "verbose",	    no_argument,	&flagVerbose,		'v' },
+	    { 0,		    0,			0,	    		 0  }
 	};
 
-	c = getopt_long(argc, argv, "lc:si:o:d", long_options, &option_index);
+	c = getopt_long(argc, argv, "li:o:c:sdhVv", long_options, &option_index);
 	if (c == -1) {
 	    break;
 	}
 
 	switch (c) {
+	    case 'v':
+		flagVerbose = true;
+		break;
 	    case 'h':
-		//Print help message
-		printhelp();
-		
-		//Exit, status 0 (no error)
-		exit(EXIT_SUCCESS);
-
-		//Break, to make sure switch statement is correct
+		flagHelp = true;
 		break;
 	    case 'V':
-		//Print version message
-		std::cout << VERSION << " - " << AUTHOR;
-
-		//Exit, status 0 (no error)
-		exit(EXIT_SUCCESS);
-
-		//Break, to make sure switch statement is corrent
+		flagVersion = true;
 		break;
 	    case 'd':
-		//Set flagd (decryption mode)
-		flagd = true;
-
-		//Break statement
+		flagDecrypt = true;
 		break;
 	    case 'l':
-		//Set flagl (List schemes)
-		flagl = true;
-
-		//Temporary list output
-		printf("Listing options \n");
-		
-		//Exit, status 0 (no error)
-		exit(EXIT_SUCCESS);
-
-		//Break, to make sure switch statement is correct
+		flagList = true;
 		break;
 	    case 'i':
-		//Set flagi (input file location) to inputed argument
-		flagi = string(optarg);
-
-		//Print to be verbose
-		printf("drawing input from file '%s'\n", flagi.c_str());
-		
-		//Break statement
+		flagInput = string(optarg);
 		break;
 	    case 'o':
-		//Set flago (output file location) to inputed argument
-		flago = string(optarg);
-
-		//Print to be verbose
-		printf("printing output to file '%s'\n", flago.c_str());
-		
-		//Break statement
+		flagOutput = string(optarg);
 		break;
 	    case 'c':
-		//Set flagc (caesarian encryption)
-		flagc = true;
-		
+		flagCaesarian = true;
 		try {
 		    //Try setting string arg to next inputed argument
 		    string arg = string(optarg);
@@ -143,17 +103,9 @@ int main(int argc, char **argv) {
 		    //Exit, status 1 (Error occured)
 		    exit(EXIT_FAILURE);
 		}
-
-		//Break statement
 		break;
 	    case 's':
-		//Set flags (wrap standard characters)
-		flags = true;
-
-		//Print to be verbose
-		printf("Using standard characters only\n");
-		
-		//Break statement
+		flagStandardChars = true;
 		break;
 	    case '?':
 		//Kinda temporary, mostly here to cover bases
@@ -172,13 +124,69 @@ int main(int argc, char **argv) {
 	optind = argc;
     }
 
+    if(flagHelp) {
+	if(flagVerbose) {
+	    printf("Displaying help message\n");
+	}
+
+	printhelp();
+
+	if(flagVerbose) {
+	    printf("Exiting program...");
+	}
+
+	//Exit, status 0 (No error)
+	exit(EXIT_SUCCESS);
+    }
+
+    if(flagVersion) {
+	if(flagVerbose) {
+	    printf("Printing version info\n");
+	}
+
+	std::cout << VERSION << " - " << AUTHOR;
+
+	if(flagVerbose) {
+	    printf("Exiting program...");
+	}
+
+	exit(EXIT_SUCCESS);
+    }
+
+    if(flagList) {
+	if(flagVerbose) {
+	    printf("Printing availible encryption schemes");
+	}
+
+	printlist();
+
+	if(flagVerbose) {
+	    printf("Exiting program...");
+	}
+
+	exit(EXIT_SUCCESS);
+    }
+
+    if(flagInput.empty() && flagVerbose) {
+	printf("drawing input from file '%s'\n", flagInput.c_str());
+    }
+
+    if(flagOutput.empty() && flagVerbose) {
+	printf("printing output to file '%s'\n", flagOutput.c_str());
+    }
+
+    if(flagStandardChars && flagVerbose) {
+	printf("Using standard characters only\n");
+    }
+
     //If caesar scheme is chosen
-    if(flagc) {
-	//Print to be verbose
-	printf("Using caesarian cipher with shift '%i'\n", shift);
+    if(flagCaesarian) {
+	if(flagVerbose) {
+	    printf("Using caesarian cipher with shift '%i'\n", shift);
+	}
 	
 	//Run encryption method (likely will be changed)
-	caesarFromCLI(msg, shift, flagd, !(flagi.empty()), !flago.empty(), flagi, flago, flags);
+	caesarFromCLI(msg, shift, flagDecrypt, !(flagInput.empty()), !flagOutput.empty(), flagInput, flagOutput, flagStandardChars);
     }
 
     //Exit, status 0 (no error)
