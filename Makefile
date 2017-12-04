@@ -11,7 +11,7 @@ pbp:
 	elif [ ! [ -d "build" ] ]; then \
 	mkdir build && cd build; \
 	fi; \
-	CXX -o pbp ../$(SRCFILES) -I ../$(IDIR)
+	$(CXX) -o pbp ../$(SRCFILES) -I ../$(IDIR)
 
 .PHONY: clean
 clean:
