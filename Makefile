@@ -1,9 +1,10 @@
 SRCFILES = src/*
 IDIR = include/
 
-CXX ?= g++
+CXX ?= g++-7.0
+STD ?= c++11
 
-pbp: 
+pbp:
 	if [ -d "build" ]; then \
 	cd build; \
 	elif [ -e "build" ]; then \
@@ -11,7 +12,7 @@ pbp:
 	elif [ ! [ -d "build" ] ]; then \
 	mkdir build && cd build; \
 	fi; \
-	$(CXX) -o pbp ../$(SRCFILES) -I ../$(IDIR)
+	$(CXX) -o pbp ../$(SRCFILES) -I ../$(IDIR) -std=$(STD)
 
 .PHONY: clean
 clean:

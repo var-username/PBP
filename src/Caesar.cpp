@@ -16,12 +16,8 @@ void caesarFromCLI(string msg, int shift, bool flagd, bool flagi, bool flago,
 		string inputFile, string outputFile, bool flags) {
 
 	//If flagd, set shift to be negative
-	switch (flagd) {
-	case true:
+	if (flagd) {
 		shift = 0 - shift;
-		break;
-	case false:
-		break;
 	}
 
 	//If not outputing to file
@@ -30,7 +26,7 @@ void caesarFromCLI(string msg, int shift, bool flagd, bool flagi, bool flago,
 		//If not inputing from file
 		if (flagi) {
 			try {
-				std::ifstream in(inputFile, std::ifstream::binary);
+				std::ifstream in (inputFile.c_str());
 				//in.open(inputFile, ios::in);
 				string input;
 				if (in) {
@@ -72,8 +68,8 @@ void caesarFromCLI(string msg, int shift, bool flagd, bool flagi, bool flago,
 		//If not inputing from file
 		if (flagi) {
 			try {
-				std::ifstream in(inputFile, std::ifstream::binary);
-				std::ofstream out(outputFile);
+				std::ifstream in(inputFile.c_str());
+				std::ofstream out(outputFile.c_str());
 				//in.open(inputFile, ios::in);
 				string input;
 				if (in) {
@@ -106,7 +102,7 @@ void caesarFromCLI(string msg, int shift, bool flagd, bool flagi, bool flago,
 
 		//If inputing from file
 		else {
-			ofstream out(outputFile);
+			ofstream out(outputFile.c_str());
 			out << caesarEncrypt(msg, shift, flags).c_str();
 			out.close();
 		}

@@ -12,7 +12,7 @@
 #include <fstream>
 #include <iterator>
 #include <bitset>
-
+#include <stdlib.h>
 
 void caesarFromCLI(std::string msg, int shift, bool flagd, bool flagi, bool flago, std::string inputFile, std::string outputFile, bool flags);
 

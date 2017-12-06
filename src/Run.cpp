@@ -14,7 +14,7 @@ void printlist() {
 int main(int argc, char **argv) {
     //return value from getopt_long
     int c;
-    
+
     string flagInput, flagOutput;
     int flagDecrypt, flagHelp, flagList, flagStandardChars, flagVerbose, flagVersion;
     int flagCaesarian;
@@ -34,7 +34,7 @@ int main(int argc, char **argv) {
 
     //If no input file, this is the text that will be used in processes
     string msg = "";
-    
+
     //int digit_optind = 0;
     while (1) {
     	//int this_option_optind = optind ? optind : 1;
@@ -90,18 +90,18 @@ int main(int argc, char **argv) {
 	    				//Print error
 	    				printf("Error: No positive int found after flag 'c'\n");
 	    				printf("To use a negative shift, use flag 'd'\n");
-			
+
 	    				//Exit, status 1 (Error occured)
 	    				exit(EXIT_FAILURE);
 	    			}
 
 	    			//If no '-' char in argument, set int shift to argument
-	    			shift = stoi(arg);
+	    			shift = stoi(arg.c_str());
 
 	    		} catch (std::invalid_argument& e) {
 	    			//Print error: no number for shift after flagc
 	    			printf("Error: Only numerical values allowed for parameter 'shift'\n");
-		    
+
 	    			//Exit, status 1 (Error occured)
 	    			exit(EXIT_FAILURE);
 	    		}
@@ -186,14 +186,14 @@ int main(int argc, char **argv) {
     	if(flagVerbose) {
     		printf("Using caesarian cipher with shift '%i'\n", shift);
     	}
-	
+
     	//Run encryption method (likely will be changed)
     	caesarFromCLI(msg, shift, flagDecrypt, !(flagInput.empty()), !flagOutput.empty(), flagInput, flagOutput, flagStandardChars);
     }
 
     //Exit, status 0 (no error)
     exit(EXIT_SUCCESS);
-    
+
     /*
 	if (argc < 2) {
 	    printhelp();
@@ -203,4 +203,3 @@ int main(int argc, char **argv) {
 	}
     */
 }
-
