@@ -42,6 +42,7 @@ matrix:
       env:
         - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7"
 before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
   - eval "${MATRIX_EVAL}"
 
 install: true
