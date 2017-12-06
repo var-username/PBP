@@ -1,8 +1,6 @@
 language: cpp
 
-compiler:
-  - clang
-  - gcc
+install: true
 
 os:
   - linux
@@ -12,7 +10,7 @@ dist: trusty
 
 notifications:
   email: false
- 
+
 matrix:
   include:
     - os: linux
@@ -25,6 +23,21 @@ matrix:
             - g++-7
       env:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - llvm-toolchain-trusty-5.0
+          packages:
+            - clang-5.0
+      env:
+        - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
+    - os: osx
+      osx_image: xcode8
+      env:
+        - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7"
 before_install:
   - eval "${MATRIX_EVAL}"
+
+script:
   - make
