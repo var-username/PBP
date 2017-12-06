@@ -9,6 +9,7 @@
 #define RUN_H_
 #include <stdio.h>
 #include <iostream>
+#include <stdexcept>
 #include <stdlib.h>
 #include <string>
 #include <cstring>
