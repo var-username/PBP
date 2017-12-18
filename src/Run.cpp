@@ -16,18 +16,22 @@ int main(int argc, char **argv) {
     int c;
 
     string flagInput, flagOutput;
-    int flagDecrypt, flagHelp, flagList, flagStandardChars, flagVerbose, flagVersion;
-    int flagCaesarian;
+    int flagDecrypt = 0;
+    int flagHelp = 0;
+    int flagList = 0;
+    int flagStandardChars = 0;
+    int flagVerbose = 0;
+    int flagVersion = 0;
+
+    //Used as bool, int for compatibility with getopt_long
+    //If >0, Caesar shift is being used
+    int flagCaesarian = 0;
 
     //Input file, blank if none
     flagInput = "";
 
     //Output file, blank if none
     flagOutput = "";
-
-    //Used as bool, int for compatibility with getopt_long
-    //If >0, Caesar shift is being used
-    flagCaesarian = 0;
 
     //Shift amount for Caesar cipher
     int shift = 0;
@@ -58,27 +62,35 @@ int main(int argc, char **argv) {
     	}
 
     	switch (c) {
+
 	    	case 'v':
 	    		flagVerbose = true;
 	    		break;
+
 	    	case 'h':
 	    		flagHelp = true;
 	    		break;
+
 	    	case 'V':
 	    		flagVersion = true;
 	    		break;
+
 	    	case 'd':
 	    		flagDecrypt = true;
 	    		break;
+
 	    	case 'l':
 	    		flagList = true;
 	    		break;
+
 	    	case 'i':
 	    		flagInput = string(optarg);
 	    		break;
+
 	    	case 'o':
 	    		flagOutput = string(optarg);
 	    		break;
+
 	    	case 'c':
 	    		flagCaesarian = true;
 	    		try {
@@ -106,12 +118,15 @@ int main(int argc, char **argv) {
 	    			exit(EXIT_FAILURE);
 	    		}
 	    		break;
+
 	    	case 's':
 	    		flagStandardChars = true;
 	    		break;
+
 	    	case '?':
 	    		//Kinda temporary, mostly here to cover bases
 	    		break;
+
 	    	default:
 	    		//This shouldnt happen. If this happens, getopt broke and it likely
 	    		//is not my fault

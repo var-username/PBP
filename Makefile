@@ -6,11 +6,11 @@ STD ?= c++11
 
 pbp:
 	if [ -d "build" ]; then \
-	cd build; \
+		cd build; \
 	elif [ -e "build" ]; then \
-	rm build && mkdir build; \
+		rm build && mkdir build; \
 	elif [ ! [ -d "build" ] ]; then \
-	mkdir build && cd build; \
+		mkdir build && cd build; \
 	fi; \
 	$(CXX) -o pbp ../$(SRCFILES) -I ../$(IDIR) -std=$(STD)
 
