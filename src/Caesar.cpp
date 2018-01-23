@@ -9,92 +9,53 @@
 
 using namespace std;
 
-//Likely will be replaced for something more general.
-//Until then, just takes in flags and prints/operates
-//accordingly.
-void caesarFromCLI(string msg, int shift, bool flagd, bool flagi, bool flago,
-		string inputFile, string outputFile, bool flags) {
 
-	//If flagd, set shift to be negative
+void caesarFromCLI(string msg, int shift, bool flagd, string inputFile, string outputFile, bool flags) {
+	bool flagi = !(inputFile.empty());
+	bool flago = !(outputFile.empty());
+
 	if (flagd) {
 		shift = 0 - shift;
 	}
 
-	//If outputing to file
+	if (flagi) {
+		try {
+			std::ifstream in(inputFile.c_str());
+			if (in) {
+				// get length of file:
+				in.seekg(0, in.end);
+				int length = in.tellg();
+				in.seekg(0, in.beg);
+				char * buffer = new char[length];
+				// read data as a block:
+				in.read(buffer, length);
+				if (in) {
+					std::cout << "all characters read successfully."
+							  << endl;
+				} else {
+					std::cout << "error: only " << in.gcount()
+							  << " could be read";
+				}
+				in.close();
+				msg = string(buffer);
+				// ...buffer contains the entire file...
+				delete[] buffer;
+			}
+
+		} catch (std::fstream::failure::exception& e) {
+			printf("Error: Input file not found");
+			exit(EXIT_FAILURE);
+		}
+	}
+
 	if (flago) {
 		std::ofstream out(outputFile.c_str());
-		//If not inputing from file
-		if (flagi) {
-			try {
-				std::ifstream in(inputFile.c_str());
-				//in.open(inputFile, ios::in);
-				string input;
-				if (in) {
-					// get length of file:
-					in.seekg(0, in.end);
-					int length = in.tellg();
-					in.seekg(0, in.beg);
-					char * buffer = new char[length];
-					// read data as a block:
-					in.read(buffer, length);
-					if (in)
-						std::cout << "all characters read successfully."
-								<< endl;
-					else
-						std::cout << "error: only " << in.gcount()
-								<< " could be read";
-					in.close();
-					input = string(buffer);
-					// ...buffer contains the entire file...
-					delete[] buffer;
-				}
-				out << (caesarEncrypt(input, shift, flags).c_str());
-			} catch (std::fstream::failure::exception& e) {
-				printf("Error: Input file not found");
-				exit(EXIT_FAILURE);
-			}
-		} else {
-			//If inputing from file
-			out << caesarEncrypt(msg, shift, flags).c_str();
-		}
+		out << caesarEncrypt(msg, shift, flags).c_str();
 		out.close();
 	} else {
 		//If not inputing from file
-		if (flagi) {
-			try {
-				std::ifstream in(inputFile.c_str());
-				//in.open(inputFile, ios::in);
-				string input;
-				if (in) {
-					// get length of file:
-					in.seekg(0, in.end);
-					int length = in.tellg();
-					in.seekg(0, in.beg);
-					char * buffer = new char[length];
-					// read data as a block:
-					in.read(buffer, length);
-					if (in)
-						std::cout << "all characters read successfully."
-								<< endl;
-					else
-						std::cout << "error: only " << in.gcount()
-								<< " could be read";
-					in.close();
-					input = string(buffer);
-					// ...buffer contains the entire file...
-					delete[] buffer;
-				}
-
-				printf("%s\n", caesarEncrypt(input, shift, flags).c_str());
-			} catch (std::fstream::failure::exception& e) {
-				printf("Error: Input file not found");
-				exit(EXIT_FAILURE);
-			}
-		} else {
-			//If inputing from file
-			//Run function, print result to stout
-			printf("%s\n", caesarEncrypt(msg, shift, flags).c_str());
-		}
+		//Run function, print result to stout
+		printf("%s\n", caesarEncrypt(msg, shift, flags).c_str());
 	}
 }
 

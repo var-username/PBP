@@ -54,7 +54,7 @@ int main(int argc, char **argv) {
 			{ "version",	    	no_argument,		&flagVersion,		'V' },
 			{ "verbose",	    	no_argument,		&flagVerbose,		'v' },
 			{ 0,		    		0,					0,	    		 	 0  }
-	};
+    	};
 
     	c = getopt_long(argc, argv, "li:o:c:sdhVv", long_options, &option_index);
     	if (c == -1) {
@@ -203,7 +203,7 @@ int main(int argc, char **argv) {
     	}
 
     	//Run encryption method (likely will be changed)
-    	caesarFromCLI(msg, shift, flagDecrypt, !(flagInput.empty()), !flagOutput.empty(), flagInput, flagOutput, flagStandardChars);
+    	caesarFromCLI(msg, shift, flagDecrypt, flagInput, flagOutput, flagStandardChars);
     }
 
     //Exit, status 0 (no error)

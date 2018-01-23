@@ -14,7 +14,7 @@
 #include <bitset>
 #include <stdlib.h>
 
-void caesarFromCLI(std::string msg, int shift, bool flagd, bool flagi, bool flago, std::string inputFile, std::string outputFile, bool flags);
+void caesarFromCLI(std::string msg, int shift, bool flagd, std::string inputFile, std::string outputFile, bool flags);
 
 std::string caesarEncrypt(std::string message, int shift, bool loopChars);
 
