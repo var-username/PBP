@@ -1,7 +1,7 @@
 /*
  * config.h
  *
- *  Created on: Aug 3, 2017
+ *  Created on: Jan 26, 2018
  *      Author: variable
  */
 
@@ -14,6 +14,6 @@
 #define VERSION_SUFFIX "dev"
 #define VERSION "v0.1.0-dev"
 #define AUTHOR "Variable Username"
-#define COPYRIGHT "(C) Variable Username 2017"
+#define COPYRIGHT "(C) Variable Username 2018"
 
 #endif /* CONFIG_H_ */
