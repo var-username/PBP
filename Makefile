@@ -1,19 +1,34 @@
-SRCFILES = src/*
-IDIR = include/
+SRCDIR ?= src
+BUILDDIR ?= build
 
 CXX ?= g++-7.0
 STD ?= c++11
 
-pbp:
-	if [ -d "build" ]; then \
-		cd build; \
-	elif [ -e "build" ]; then \
-		rm build && mkdir build; \
-	elif [ ! [ -d "build" ] ]; then \
-		mkdir build && cd build; \
+pbp: prepare run.o caesar.o vigenere.o
+	if [ -d "$(BUILDDIR)" ]; then \
+		cd $(BUILDDIR); \
 	fi; \
-	$(CXX) -o pbp ../$(SRCFILES) -I ../$(IDIR) -std=$(STD)
+	$(CXX) -o pbp run.o caesar.o vigenere.o -std=$(STD)
+
+.PHONY: prepare 
+prepare:
+	if [ -d "$(BUILDDIR)" ]; then \
+		echo ""; \
+	elif [ -e "$(BUILDDIR)" ]; then \
+		rm $(BUILDDIR) && mkdir $(BUILDDIR); \
+	elif [ ! [ -d "$(BUILDDIR)" ] ]; then \
+		mkdir $(BUILDDIR); \
+	fi
+
+run.o:
+	$(CXX) -c -o $(BUILDDIR)/run.o $(SRCDIR)/run.cpp
+
+caesar.o:
+	$(CXX) -c -o $(BUILDDIR)/caesar.o $(SRCDIR)/enc/caesar.cpp
+
+vigenere.o:
+	$(CXX) -c -o $(BUILDDIR)/vigenere.o $(SRCDIR)/enc/vigenere.cpp
 
 .PHONY: clean
 clean:
-	rm -f build/pbp
+	rm -f $(BUILDDIR)/pbp
