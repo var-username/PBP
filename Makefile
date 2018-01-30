@@ -16,7 +16,7 @@ prepare:
 		echo ""; \
 	elif [ -e "$(BUILDDIR)" ]; then \
 		rm $(BUILDDIR) && mkdir $(BUILDDIR); \
-	elif [ ! [ -d "$(BUILDDIR)" ] ]; then \
+	elif [ ! -d "$(BUILDDIR)" ]; then \
 		mkdir $(BUILDDIR); \
 	fi
 
