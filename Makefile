@@ -21,13 +21,13 @@ prepare:
 	fi
 
 run.o:
-	$(CXX) -c -o $(BUILDDIR)/run.o $(SRCDIR)/run.cpp
+	$(CXX) -c -o $(BUILDDIR)/run.o $(SRCDIR)/run.cpp -std=$(STD)
 
 caesar.o:
-	$(CXX) -c -o $(BUILDDIR)/caesar.o $(SRCDIR)/enc/caesar.cpp
+	$(CXX) -c -o $(BUILDDIR)/caesar.o $(SRCDIR)/enc/caesar.cpp -std=$(STD)
 
 vigenere.o:
-	$(CXX) -c -o $(BUILDDIR)/vigenere.o $(SRCDIR)/enc/vigenere.cpp
+	$(CXX) -c -o $(BUILDDIR)/vigenere.o $(SRCDIR)/enc/vigenere.cpp -std=$(STD)
 
 .PHONY: clean
 clean:
