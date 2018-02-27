@@ -1,0 +1,25 @@
+# @configure_input@
+
+srcdir		= @srcdir@
+VPATH		= @srcdir@
+
+CC			?= @CC@
+CFLAGS		?= @CFLAGS@
+CXX 		?= @CXX@
+CXXFLAGS	?= @CXXFLAGS@
+LDFLAGS		?= @LDFLAGS@
+CPPFLAGS	?= @CPPFLAGS@
+
+STD 		?= c++11
+
+run.o: run.cpp caesar.o vigenere.o
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -I. -I$(srcdir) -I.. -std=$(STD) -c $(srcdir)/run.cpp -o ../run.o
+
+caesar.o vigenere.o:
+	cd enc && $(MAKE) $@
+
+Makefile: Makefile.in ../config.status
+	cd .. && ./config.status src/$@
+
+../config.status: ../configure
+	cd .. && ./config.status --recheck
