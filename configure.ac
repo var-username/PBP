@@ -1,8 +1,13 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
+# Autoconf requirements
 AC_PREREQ([2.69])
+
+# Autoconf init
 AC_INIT([pbp], [0.1])
+
+# Package information
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([src/run.cpp])
 AC_CONFIG_HEADERS([config.h:config.h.in])
