@@ -1,0 +1,6 @@
+Version 0.1 (28-Feb-18): Pre-alpha build
+	Working flag-based program `pbp`
+		Caesarian encryption/decryption
+		Vigenere encryption/decryption
+	Ported build system to autotools
+		Likely didn't do it right but everything generates so it's fine by me

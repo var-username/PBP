@@ -1,0 +1,21 @@
+Pretty Bad Privacy
+
+
+For all those times you want some privacy, but in the end don't really care.
+
+Compiling:
+	Dev Build:
+		# Generate required files, including configure
+		automake -a -c && autoreconf 
+		
+		# Run configure
+		./configure
+		
+		# Make
+		make
+		
+		# Very simple unit test
+		make check && cd src && (./greptest; cd ..)
+		
+		# Install it if you want (May need to be run as root)
+		make install
