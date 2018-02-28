@@ -8,8 +8,8 @@
 #ifndef ENC_TYPES_H_
 #define ENC_TYPES_H_
 
-#include "enc/caesar.h"
-#include "enc/vigenere.h"
+#include "caesar.h"
+#include "vigenere.h"
 
 
 #endif /* ENC_TYPES_H_ */

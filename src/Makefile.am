@@ -1,5 +1,5 @@
 bin_PROGRAMS = pbp 
-pbp_SOURCES = run.cpp caesar.cpp vigenere.o
+pbp_SOURCES = run.cpp caesar.cpp vigenere.cpp
 pbp_CFLAGS = -std=c++11
 check_SCRIPTS = greptest.sh
 TESTS = $(check_SCRIPTS)
