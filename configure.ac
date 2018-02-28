@@ -3,6 +3,7 @@
 
 AC_PREREQ([2.69])
 AC_INIT([pbp], [0.1])
+AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([src/run.cpp])
 AC_CONFIG_HEADERS([config.h:config.h.in])
 
@@ -22,6 +23,5 @@ AC_CHECK_HEADER_STDBOOL
 # Checks for library functions.
 
 AC_CONFIG_FILES([Makefile:Makefile.in
-                 src/Makefile:src/Makefile.in
-                 src/enc/Makefile:src/enc/Makefile.in])
+                 src/Makefile:src/Makefile.in])
 AC_OUTPUT
