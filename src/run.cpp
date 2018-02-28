@@ -63,82 +63,80 @@ int main(int argc, char **argv) {
 		if (getopt_long_return == -1) {
 			break;
 		}
-
+		
 		switch (getopt_long_return) {
-
+		
 		case 'v':
 			flagVerbose = true;
 			break;
-
+			
 		case 'h':
 			flagHelp = true;
 			break;
-
+		
 		case 'V':
 			flagVersion = true;
 			break;
-
+		
 		case 'd':
 			flagDecrypt = true;
 			break;
-
+		
 		case 'l':
 			flagList = true;
 			break;
-
+		
 		case 'i':
 			inputFile = string(optarg);
 			break;
-
+		
 		case 'o':
 			outputFile = string(optarg);
 			break;
-
-        if (outputFile.empty()) {
-            flagStandardChars = 1;
-        }
-        
+		
+		if (outputFile.empty()) {
+			flagStandardChars = 1;
+		}
+		
 		case 'c':
 			flagCaesarian = true;
 			try {
 				//Try setting string arg to next inputed argument
 				string arg = string(optarg);
-
+				
 				//If character '-' is found in argument
 				if (arg.find('-') != string::npos) {
 					//Print error
 					cerr << "Error: No positive int found after flag 'c'" << endl;
 					cerr << "To use a negative shift, use flag 'd'" << endl;
-
+					
 					//Exit, status 1 (Error occurred)
 					exit(EXIT_FAILURE);
 				}
-
+				
 				//If no '-' char in argument, set int shift to argument
 				shift = stoi(arg.c_str());
-
+				
 			} catch (std::invalid_argument& e) {
 				//Print error: no number for shift after flagc
 				cerr << "Error: Only numerical values allowed for parameter 'shift'" << endl;
-
+				
 				//Exit, status 1 (Error occurred)
 				exit(EXIT_FAILURE);
 			}
 			break;
-
-
+		
 		case 'p':
-		   flagVigenere = true;
-		   try {
-		   	   string arg = string(optarg);
-		  	   vigenereShift = arg.c_str();
-		   } catch (std::invalid_argument& e) {
-		   	   cerr << "An unknown error has occurred, the program will now exit" << endl;
-		       exit(EXIT_FAILURE);
-		   }
-		   break;
-
-
+			flagVigenere = true;
+			try {
+				string arg = string(optarg);
+				vigenereShift = arg.c_str();
+			} catch (std::invalid_argument& e) {
+				cerr << "An unknown error has occurred, the program will now exit" << endl;
+				exit(EXIT_FAILURE);
+			}
+			break;
+		
 		case 's':
 			try {
 				string arg = string(optarg).c_str();
@@ -152,11 +150,11 @@ int main(int argc, char **argv) {
 				exit(EXIT_FAILURE);
 			}
 			break;
-
+		
 		case '?':
 			//Kinda temporary, mostly here to cover bases
 			break;
-
+		
 		default:
 			//This shouldn't happen. If this happens, getopt broke and it likely
 			//is not my fault
@@ -164,30 +162,30 @@ int main(int argc, char **argv) {
 			break;
 		}
 	}
-
+	
 	//If there are more arguments, but all flags have been parsed, last args are message
 	if (optind < argc) {
 		msg += string(argv[argc - 1]);
 		optind = argc;
 	}
-
+	
 	if(flagCaesarian) {
 		numberOfEncTypes++;
 	}
-
+	
 	if(flagVigenere) {
 		numberOfEncTypes++;
 	}
-
-
+	
+	
 	if(!inputFile.empty() && flagVerbose) {
 	    printf("drawing input from file '%s'\n", inputFile.c_str());
 	}
-
+	
 	if(!outputFile.empty() && flagVerbose) {
 	   	printf("printing output to file '%s'\n", outputFile.c_str());
 	}
-
+	
 	if(flagStandardChars != 0 && flagVerbose) {
 		switch (flagStandardChars) {
 		case 1:
@@ -201,12 +199,12 @@ int main(int argc, char **argv) {
 			break;
 		}
 	}
-
+	
 	if(numberOfEncTypes > 1) {
 		cerr << "Warning: more than one primary encryption entered, program will now exit" << endl;
 		exit(EXIT_FAILURE);
 	}
-
+	
 	if(flagCaesarian) {
 		if(flagVerbose) {
 			printf("Using caesarian cipher with shift '%i'\n", shift);
@@ -215,18 +213,18 @@ int main(int argc, char **argv) {
 		if(flagDecrypt) {
 			shift = 0 - shift;
 		}
-
+		
 		return caesarEncrypt(msg.c_str(), shift, inputFile.c_str(), outputFile.c_str(), flagStandardChars);
 	}
-
+	
 	if(flagVigenere) {
 		if(flagVerbose) {
 			printf("Using vigenere cipher with shift '%s'\n", vigenereShift.c_str());
 		}
 		return vigenereEncrypt(msg.c_str(), vigenereShift.c_str(), inputFile.c_str(), outputFile.c_str(), flagStandardChars, flagDecrypt);
 	}
-
+	
 	exit(EXIT_SUCCESS);
-
+	
 }
 

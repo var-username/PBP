@@ -17,7 +17,7 @@ int vigenereEncrypt(string msg, string shift, string inputFile,
 		string outputFile, int flags, bool flagd) {
 	bool flagi = !(inputFile.empty());
 	ifstream in;
-
+	
 	if (flagi) {
 		try {
 			ifstream in(inputFile.c_str());
@@ -26,10 +26,10 @@ int vigenereEncrypt(string msg, string shift, string inputFile,
 			return EXIT_FAILURE;
 		}
 	}
-
+	
 	bool flago = !(outputFile.empty());
 	ofstream out;
-
+	
 	if (flago) {
 		try {
 			ofstream out(outputFile.c_str());
@@ -37,17 +37,17 @@ int vigenereEncrypt(string msg, string shift, string inputFile,
 			return EXIT_FAILURE;
 		}
 	}
-
+	
 	bool loop = true;
 	char nextChar;
 	int iNextChar;
 	char cNextChar;
 	int i = -1;
-
+	
 	if (!flagi) {
 		i = msg.length();
 	}
-
+	
 	while (loop) {
 		if (flagi) {
 			if (in.eof()) {
@@ -60,7 +60,7 @@ int vigenereEncrypt(string msg, string shift, string inputFile,
 			nextChar = msg[msg.length() - i];
 			i--;
 		}
-
+		
 		if (nextChar == '\0') {
 			cNextChar = '\0';
 		} else {
@@ -70,29 +70,29 @@ int vigenereEncrypt(string msg, string shift, string inputFile,
 			} else {
 				iNextChar += (int) shift[(msg.length() - i) % shift.length()];
 			}
-
+			
 			switch (flags) {
 			case 1:
 				while (iNextChar < 32) {
 					iNextChar += 95;
 				}
-
+				
 				if (iNextChar > 126) {
 					iNextChar = ((iNextChar - 32) % 95) + 32;
 				}
-
+				
 				break;
 			}
-
+			
 			cNextChar = (char) iNextChar;
 		}
-
+		
 		if (flago) {
 			out << cNextChar;
 		} else {
 			cout << cNextChar;
 		}
-
+		
 		if (cNextChar == '\0') {
 			if (out) {
 				out.close();

@@ -14,7 +14,7 @@ int caesarEncrypt(string msg, int shift, int flags) {
 
 int caesarEncrypt(string msg, int shift, string inputFile, string outputFile,
 		int flags) {
-    
+	
 	bool flagi = !(inputFile.empty());
 	ifstream in;
 
@@ -26,10 +26,10 @@ int caesarEncrypt(string msg, int shift, string inputFile, string outputFile,
 			return 1;
 		}
 	}
-
+	
 	bool flago = !(outputFile.empty());
 	ofstream out;
-
+	
 	if (flago) {
 		try {
 			ofstream out(outputFile.c_str());
@@ -37,17 +37,17 @@ int caesarEncrypt(string msg, int shift, string inputFile, string outputFile,
 			return 1;
 		}
 	}
-
+	
 	bool loop = true;
 	char nextChar;
 	int iNextChar;
 	char cNextChar;
 	int i = -1;
-
+	
 	if (!flagi) {
 		i = msg.length();
 	}
-
+	
 	while (loop) {
 		if (flagi) {
 			if (in.eof()) {
@@ -60,7 +60,7 @@ int caesarEncrypt(string msg, int shift, string inputFile, string outputFile,
 			nextChar = msg[msg.length() - i];
 			i--;
 		}
-
+		
 		if (nextChar == '\0') {
 			cNextChar = '\0';
 		} else {
@@ -75,9 +75,9 @@ int caesarEncrypt(string msg, int shift, string inputFile, string outputFile,
 				if (iNextChar > 126) {
 					iNextChar = ((iNextChar - 32) % 95) + 32;
 				}
-
+				
 				break;
-
+			
 			//TODO: Take another look at this, see if it can be done better
 			case 2:
 				iNextChar = (int)toupper((char) iNextChar);
@@ -89,16 +89,16 @@ int caesarEncrypt(string msg, int shift, string inputFile, string outputFile,
 				} 
 				break;
 			}
-
+			
 			cNextChar = (char) iNextChar;
 		}
-
+		
 		if (flago) {
 			out << cNextChar;
 		} else {
 			cout << cNextChar;
 		}
-
+		
 		if (cNextChar == '\0') {
 			if (out) {
 				out.close();
