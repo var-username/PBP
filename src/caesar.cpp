@@ -5,7 +5,7 @@
  *      Author: variable
  */
 
-#include "../include/caesar.h"
+#include "../../include/enc/caesar.h"
 using namespace std;
 
 int caesarEncrypt(string msg, int shift, int flags) {

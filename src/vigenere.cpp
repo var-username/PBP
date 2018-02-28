@@ -5,7 +5,7 @@
  *      Author: variable
  */
 
-#include "../include/vigenere.h"
+#include "../../include/enc/vigenere.h"
 
 using namespace std;
 
