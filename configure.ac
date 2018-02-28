@@ -22,6 +22,6 @@ AC_CHECK_HEADER_STDBOOL
 
 # Checks for library functions.
 
-AC_CONFIG_FILES([Makefile:Makefile.in
-                 src/Makefile:src/Makefile.in])
+AC_CONFIG_FILES([Makefile
+                 src/Makefile])
 AC_OUTPUT
