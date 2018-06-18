@@ -17,7 +17,7 @@ int main(int argc, char **argv) {
 	int flagDecrypt = 0;
 	int flagHelp = 0;
 	int flagList = 0;
-	int flagStandardChars = 0;
+	int flagStandardChars = -1;
 	int flagVerbose = 0;
 	int flagVersion = 0;
 
@@ -188,16 +188,23 @@ int main(int argc, char **argv) {
 	
 	if(flagStandardChars != 0 && flagVerbose) {
 		switch (flagStandardChars) {
+		case -1:
+			printf("Standard Chars flag unused, defaulting to 1.\nUsing only ASCII printable characters.\n");
+			break;
 		case 1:
-			printf("Using only ASCII printable characters\n");
+			printf("Using only ASCII printable characters.\n");
 			break;
 		case 2:
-			printf("Preserving non-alphabetical characters, printing uppercase\n");
+			printf("Preserving non-alphabetical characters, printing uppercase.\n");
 			break;
 		case 3:
-			printf("Ignoring non-alphabetical characters, printing uppercase\n");
+			printf("Ignoring non-alphabetical characters, printing uppercase.\n");
 			break;
 		}
+	}
+
+	if(flagStandardChars == -1) {
+		flagStandardChars = 1;
 	}
 	
 	if(numberOfEncTypes > 1) {
