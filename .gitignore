@@ -39,3 +39,5 @@
 /.settings/
 /autom4te.cache/
 /*.tar.gz
+
+configure
