@@ -37,3 +37,5 @@
 /Release/
 /build/
 /.settings/
+/autom4te.cache/
+/*.tar.gz
