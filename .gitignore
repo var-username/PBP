@@ -27,5 +27,5 @@ autoscan.log
 config.h
 config.log
 config.status
-*.tar.gz
+/*.tar.gz
 /autom4te.cache
